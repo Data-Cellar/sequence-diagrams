@@ -48,9 +48,9 @@ sequenceDiagram
 
 ## Provisioning and Synchronising Local Catalogues with the Federated Catalogue
 
-The following sequence diagram illustrates how the stack of software services present on each participant interacts to provision the local catalogue of the connector. This catalogue is based on the DCAT ontology as defined by the Dataspace Protocol and is then transformed into the Gaia-X Trust Framework model, enabling it to be fed into the Gaia-X Federated Catalogue, a central component of Data Cellar. In this way, the Federated Catalogue provides an aggregated view of the offerings from the participants in the data space.
-
 This sequence diagram is closely linked to **SUC 2 (Discovery)** as it shows how the Gaia-X Federated Catalogue, which is essential for discovery, is provisioned and kept up-to-date by the participants of Data Cellar.
+
+The diagram illustrates how the stack of software services present on each participant interacts to provision the local catalogue of the connector. This catalogue is based on the DCAT ontology as defined by the Dataspace Protocol and is then transformed into the Gaia-X Trust Framework model, enabling it to be fed into the Gaia-X Federated Catalogue, a central component of Data Cellar. In this way, the Federated Catalogue provides an aggregated view of the offerings from the participants in the data space.
 
 Please note that the current proposal is for the Web UI to implement the automatic synchronisation. This means that the administrator of the participant in question would be able to manually review and trigger the synchronisation process for the service offerings in their local catalogue to be published to the Federated Catalogue. However, this is not final, as other proposals are under consideration, namely implementing this functionality on the CDE or the connector itself. The only decision that is considered final is that this synchronisation process needs to exist and must be more or less automatic.
 
@@ -82,6 +82,12 @@ sequenceDiagram
 
 ## Contracting an Offer via the Dashboard
 
+This sequence diagram relates to **SUC 3 (Contracting)** as it illustrates the process an end user follows to obtain access to a dataset provided by another counterparty connector, following the contract negotiation process as specified by the Dataspace Protocol.
+
+In Data Cellar, end users may be part of a Validation Case, such as a Local Energy Community, which serves as one of the main data sources for the Data Cellar data space. Whether they belong to a Validation Case or not, users interact with the data space via the Dashboard—a user-friendly web interface designed to abstract the technical complexities of deploying, configuring, and interacting with the APIs of an Eclipse Dataspace Components Connector.
+
+A key feature of the Dashboard is that its DID is implicitly trusted by all participants in the data space. The Dashboard functions as a superuser. However, participants have the option to opt out of this implicit trust if they wish, although this may result in some features no longer working properly.
+
 ```mermaid
 sequenceDiagram
     actor USR as End User
@@ -99,12 +105,13 @@ sequenceDiagram
     participant PAP as Provider API
     end
     USR->>DAS: Logs in
-    DAS<<->>IAM: Integrates with central IAM for identity
+    DAS<<->>IAM: Integrates with central IAM for identity management
     DAS<<->>MKP: Integrates with Marketplace to list offerings
     USR->>DAS: Selects an offering
     DAS->>DBC: Initiates contract negotiation
-    DBC<<->>PVC: Goes through contract negotiation as specified by the Dataspace Protocol
-    PVC-->>DAS: Provides access token once contract negotiation is complete
+    Note over DBC, PVC: The Dashboard DID is implicitly trusted across the entire data space
+    DBC<<->>PVC: Conducts contract negotiation as specified by the Dataspace Protocol
+    PVC-->>DAS: Responds with an access token once contract negotiation is complete
     DAS->>PVC: Uses the access token to call the Provider API
     PVC-->>PAP: Proxies the HTTP request
 ```
