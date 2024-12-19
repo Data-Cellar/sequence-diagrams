@@ -109,7 +109,6 @@ sequenceDiagram
     DAS<<->>MKP: Integrates with Marketplace to list offerings
     USR->>DAS: Selects an offering
     DAS->>DBC: Initiates contract negotiation
-    Note over DBC, PVC: The Dashboard DID is implicitly trusted across the entire data space
     DBC<<->>PVC: Conducts contract negotiation as specified by the Dataspace Protocol
     PVC-->>DAS: Responds with an access token once contract negotiation is complete
     DAS->>PVC: Uses the access token to call the Provider API
