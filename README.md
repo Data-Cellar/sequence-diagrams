@@ -79,3 +79,32 @@ sequenceDiagram
     CNS->>CNS: Retrieves the ID of the DCAT-based connector's catalogue from the Service Offering
     CNS->>CCC: Initiates the process to consume that DCAT Dataset
  ```
+
+## Contracting an Offer via the Dashboard
+
+```mermaid
+sequenceDiagram
+    actor USR as End User
+    box Dashboard's infrastructure
+    participant DAS as Dashboard
+    participant DBC as Connector
+    end
+    Note over DBC: Single instance shared by all end users
+    box Data Cellar services
+    participant IAM as Keycloak
+    participant MKP as Marketplace
+    end
+    box Counterparty (Provider)
+    participant PVC as Connector
+    participant PAP as Provider API
+    end
+    USR->>DAS: Logs in
+    DAS<<->>IAM: Integrates with central IAM for identity
+    DAS<<->>MKP: Integrates with Marketplace to list offerings
+    USR->>DAS: Selects an offering
+    DAS->>DBC: Initiates contract negotiation
+    DBC<<->>PVC: Goes through contract negotiation as specified by the Dataspace Protocol
+    PVC-->>DAS: Provides access token once contract negotiation is complete
+    DAS->>PVC: Uses the access token to call the Provider API
+    PVC-->>PAP: Proxies the HTTP request
+```
