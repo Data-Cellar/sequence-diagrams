@@ -4,9 +4,9 @@
 
 This sequence diagram is closely linked to **SUC 2 (Discovery)** as it shows how the Gaia-X Federated Catalogue, which is essential for discovery, is provisioned and kept up-to-date by the participants of Data Cellar.
 
-In Data Cellar, the CDE is a software service that functions as a gateway between the data sources provided by the administrators of the Validation Cases and the data space. It exposes an HTTP API, described by an OpenAPI document, which is then picked up by the connector to build its internal DCAT-based catalogue. The CDE also generates the Gaia-X service offerings via the *Credential Manager* (Web UI in the diagram).
+In Data Cellar, the CDE is a software service that functions as a gateway between the data sources provided by the administrators of the Validation Cases and the data space. It exposes an HTTP API, described by an OpenAPI document, which is then picked up by the connector to build its internal DCAT-based catalogue. The CDE also generates the Gaia-X service offerings via the *Web UI*.
 
-The Web UI is a local web application provided to the administrator of the Validation Case to simplify operations. It is a bespoke application developed specifically for Data Cellar.
+The Web UI (also referred to as the *Credentials Manager* in other Data Cellar resources) is a local web application designed to simplify operations for the administrator of the Validation Case. It is a bespoke application developed specifically for Data Cellar.
 
 It is important to note, however, that at no point in the process is the catalogue translated from DCAT to Gaia-X. Instead, the CDE serves as the origin for both catalogues—the DCAT-based connector's local catalogue and the Gaia-X Federated Catalogue—which coexist in the data space.
 
