@@ -40,7 +40,7 @@ sequenceDiagram
 
 This sequence diagram relates to **SUC 3 (Contracting)** as it illustrates the process an end user follows to obtain access to a dataset provided by another counterparty connector, following the contract negotiation process as specified by the Dataspace Protocol.
 
-In Data Cellar, end users may be part of a Validation Case, such as a Local Energy Community, which serves as one of the main data sources for the Data Cellar data space. Whether they belong to a Validation Case or not, users interact with the data space via the Dashboard—a user-friendly web interface designed to abstract the technical complexities of deploying, configuring, and interacting with the APIs of an Eclipse Dataspace Components Connector.
+In Data Cellar, end users may be part of a Validation Case, such as a Local Energy Community, which serves as one of the main data sources for the Data Cellar data space. Whether or not they belong to a Validation Case, users can interact with the data space via the Dashboard—a user-friendly web interface designed to simplify the technical complexities of deploying, configuring, and interacting with the APIs of an Eclipse Dataspace Components Connector.
 
 A key feature of the Dashboard is that its DID is implicitly trusted by all participants in the data space. The Dashboard functions as a superuser. However, participants have the option to opt out of this implicit trust if they wish, although this may result in some features no longer working properly.
 
