@@ -4,9 +4,11 @@
 
 This sequence diagram is closely linked to **SUC 2 (Discovery)** as it shows how the Gaia-X Federated Catalogue, which is essential for discovery, is provisioned and kept up-to-date by the participants of Data Cellar.
 
-The diagram illustrates how the stack of software services present on each participant interacts to provision the local catalogue of the connector. This catalogue is based on the DCAT ontology as defined by the Dataspace Protocol and is then transformed into the Gaia-X Trust Framework model, enabling it to be fed into the Gaia-X Federated Catalogue, a central component of Data Cellar. In this way, the Federated Catalogue provides an aggregated view of the offerings from the participants in the data space.
+In Data Cellar, the CDE is a software service that functions as a gateway between the data sources provided by the administrators of the Validation Cases and the data space. It exposes an HTTP API, described by an OpenAPI document, which is then picked up by the connector to build its internal DCAT-based catalogue. The CDE also generates the Gaia-X service offerings via the *Credential Manager* (Web UI in the diagram).
 
-Please note that the current proposal is for the Web UI to implement the automatic synchronisation. This means that the administrator of the participant in question would be able to manually review and trigger the synchronisation process for the service offerings in their local catalogue to be published to the Federated Catalogue. However, this is not final, as other proposals are under consideration, namely implementing this functionality on the CDE or the connector itself. The only decision that is considered final is that this synchronisation process needs to exist and must be more or less automatic.
+The Web UI is a local web application provided to the administrator of the Validation Case to simplify operations. It is a bespoke application developed specifically for Data Cellar.
+
+It is important to note, however, that at no point in the process is the catalogue translated from DCAT to Gaia-X. Instead, the CDE serves as the origin for both catalogues—the DCAT-based connector's local catalogue and the Gaia-X Federated Catalogue—which coexist in the data space.
 
 ```mermaid
 sequenceDiagram
