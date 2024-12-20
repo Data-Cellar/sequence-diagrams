@@ -1,5 +1,38 @@
 # Data Cellar Sequence Diagrams
 
+## Onboarding
+
+This sequence diagram is closely linked to **SUC 1 (Onboarding)** as it shows the steps that the administrator of an organisation wishing to join Data Cellar needs to follow.
+
+The onboarding process is handled by [Data-Cellar/participant-template](https://github.com/Data-Cellar/participant-template) (currently private, but will be made public later). This repository includes scripts and tools to automate much of the deployment. Once the process is complete, the organisation will have an instance of the Data Cellar connector, wallet, Credentials Manager (i.e., Web UI), and all the services needed to operate in the Data Cellar data space.
+
+```mermaid
+sequenceDiagram
+    participant REPO as Participant Template
+    box Participant's Infrastructure
+    participant PWALL as Wallet
+    actor PART as Participant
+    end
+    box Data Cellar Services
+    participant ONB as Onboarding Portal
+    participant ISS as Issuer
+    actor ADM as Admin
+    end
+    PART->>ONB: Requests Data Cellar access
+    ADM->>ONB: Approves access request
+    PART->>ONB: Generates API key
+    PART->>REPO: Clones repository
+    PART->>PART: Follows guide to deploy services (e.g., wallet, connector)
+    rect rgb(245, 245, 245)
+    note right of PWALL: Issuance process is automated by the template
+    PART->>PWALL: Registers DID
+    PART->>ONB: Requests VCs for DID
+    ONB->>ONB: Verifies API key
+    ONB->>ISS: Initiates issuance based on OID4VC
+    ISS->>PWALL: Issues Legal Participant VCs
+    end
+```
+
 ## Provisioning and Synchronising Local Catalogues with the Federated Catalogue
 
 This sequence diagram is closely linked to **SUC 2 (Discovery)** as it shows how the Gaia-X Federated Catalogue, which is essential for discovery, is provisioned and kept up-to-date by the participants of Data Cellar.
