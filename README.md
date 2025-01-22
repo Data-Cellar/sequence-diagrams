@@ -9,10 +9,7 @@ The onboarding process is handled by [Data-Cellar/participant-template](https://
 ```mermaid
 sequenceDiagram
     participant REPO as Participant Template
-    box Participant's Infrastructure
-    participant PWALL as Wallet
     actor PART as Participant
-    end
     box Data Cellar Services
     participant ONB as Onboarding Portal
     participant ISS as Issuer
@@ -22,15 +19,14 @@ sequenceDiagram
     ADM->>ONB: Approves access request
     PART->>ONB: Generates API key
     PART->>REPO: Clones repository
-    PART->>PART: Follows guide to deploy services (e.g., wallet, connector)
-    rect rgb(245, 245, 245)
-    note right of PWALL: Issuance process is automated by the template
+    PART->>PART: Follows guide to deploy services
+    create participant PWALL as Wallet
+    PART-->>PWALL: Wallet is deployed alongside the connector and other services
     PART->>PWALL: Registers DID
     PART->>ONB: Requests VCs for DID
     ONB->>ONB: Verifies API key
     ONB->>ISS: Initiates issuance based on OID4VC
     ISS->>PWALL: Issues Legal Participant VCs
-    end
 ```
 
 ## Provisioning and Synchronising Local Catalogues with the Federated Catalogue
@@ -87,15 +83,15 @@ sequenceDiagram
     Note over DBC: Single instance shared by all end users
     box Data Cellar services
     participant IAM as Keycloak
-    participant MKP as Marketplace
+    participant FCT as Federated Catalog
     end
     box Counterparty (Provider)
     participant PVC as Connector
     participant PAP as Provider API
     end
-    USR->>DAS: Logs in
     DAS<<->>IAM: Integrates with central IAM for identity management
-    DAS<<->>MKP: Integrates with Marketplace to list offerings
+    USR->>IAM: Logs in
+    DAS<<->>FCT: Integrates with Federated Catalog to list offerings
     USR->>DAS: Selects an offering
     DAS->>DBC: Initiates contract negotiation
     DBC<<->>PVC: Conducts contract negotiation as specified by the Dataspace Protocol
